@@ -1,0 +1,51 @@
+:root {
+  --bg: #0d1a36;
+  --primary: #4db8ff;
+  --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+.maintenance-container {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: radial-gradient(
+      1200px 1200px at -10% -20%,
+      #11233a 0%,
+      var(--bg) 50%
+    )
+    no-repeat;
+  background-color: var(--bg);
+  color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.maintenance-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #ffffff;
+}
+
+h2 {
+  margin-top: 25px;
+  color: var(--primary);
+}
+
+p,
+li {
+  line-height: 1.6;
+}
+
+ul,
+ol {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}

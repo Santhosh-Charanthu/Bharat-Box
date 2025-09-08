@@ -1,3 +1,4 @@
+/* 🌙 Dark mode handling */
 :root {
   --background: oklch(1 0 0);
   --foreground: #e6f0ff; /* force white */
@@ -96,7 +97,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
 }
 
 body {
@@ -108,12 +108,18 @@ body {
     )
     no-repeat;
   background-color: var(--bg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
 /* Force text color utility */
 .text-foreground {
   color: var(--text) !important;
 }
+
+/* --- Your full layout, sidebar, cards, dashboard, etc. --- */
+/* Keep everything you already wrote (sidebar, menu, stats-row, cards, buttons, chatbot-fab, etc.) exactly as it is */
 
 /* App shell and responsive sidebar behavior */
 .app-shell {
@@ -240,14 +246,14 @@ body {
   visibility: visible;
 }
 
-@media (max-width: 1048px) {
+@media (max-width: 900px) {
   .app-shell {
     padding-left: 0;
   }
   .sidebar {
     transform: translateX(-100%);
   }
-  .app-shell.sidebar-open .sidebar {
+  .sidebar.open {
     transform: translateX(0);
   }
   .topbar .mobile {
@@ -276,12 +282,6 @@ body {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
-}
-
-.wifi-icon {
-  width: 1rem; /* 16px */
-  height: 1rem; /* 16px */
-  color: #4ade80; /* Tailwind's green-400 */
 }
 
 /* Stats row */
@@ -324,50 +324,11 @@ body {
   color: #9ad;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  flex-wrap: wrap; /* allow wrapping for smaller screens */
-}
-
-.page-header .title-block h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
-
-.page-header .title-block p {
-  margin: 4px 0 0;
-  font-size: 1rem;
-  color: #aaa;
-}
-
 .actions {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
 }
-
-@media (max-width: 680px) {
-  .page-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-  }
-
-  .page-header .actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center; /* center the items inside actions */
-    width: auto; /* don't stretch full width */
-    align-self: center; /* center the .actions block in the column */
-    margin: 0 auto;
-  }
-}
-
 .badge {
   display: inline-flex;
   align-items: center;
@@ -376,17 +337,10 @@ body {
   border-radius: 10px;
   font-weight: 600;
   font-size: 13px;
-  border: 1px solid rgb(34 197 94);
-  background-color: rgba(34, 197, 94, 0.2);
+  border: 1px solid #224f3a;
+  background: rgba(33, 194, 105, 0.08);
   color: #c9f6dc;
 }
-
-.icon {
-  width: 1.25rem; /* 20px */
-  height: 1.25rem; /* 20px */
-  color: #d1d5db; /* Tailwind gray-300 */
-}
-
 .icon-btn {
   width: 40px;
   height: 40px;
@@ -422,23 +376,18 @@ body {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* Ensure card itself never overflows */
 .health-card {
-  grid-column: 1 / -1;
+  grid-column: span 2;
   padding: 18px;
   position: relative;
   overflow: hidden;
-  max-width: 100%; /* 🔥 prevent overflow */
-  box-sizing: border-box; /* 🔥 include padding/border in width */
-
-  background: rgb(34 197 94 / 0.2), rgb(21 128 61 / 0.2);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 2px solid rgb(34 197 94);
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  background: radial-gradient(
+      800px 300px at -10% 30%,
+      rgba(33, 194, 105, 0.18),
+      transparent 60%
+    ),
+    #0f2236;
 }
-
 .health-header {
   display: grid;
   grid-template-columns: 44px 1fr auto;
@@ -460,6 +409,7 @@ body {
   font-size: 28px;
   font-weight: 900;
   letter-spacing: 0.2px;
+  color: var(--muted);
 }
 .health-title .sub {
   color: var(--muted);
@@ -500,91 +450,9 @@ body {
   padding-top: 10px;
 }
 
-@media (max-width: 482px) {
-  .health-card {
-    padding: 14px; /* reduce padding */
-  }
-
-  .health-header {
-    grid-template-columns: 36px 1fr auto; /* shrink shield + spacing */
-    gap: 10px;
-  }
-
-  .health-header .shield {
-    width: 36px;
-    height: 36px;
-  }
-
-  .health-title .strong {
-    font-size: 22px; /* smaller text */
-  }
-
-  .health-header .score .big {
-    font-size: 28px;
-  }
-
-  .health-header .score .small {
-    font-size: 11px;
-  }
-
-  .section {
-    margin-top: 10px;
-  }
-
-  .section-title {
-    font-size: 14px;
-  }
-
-  .health-body .row {
-    flex-direction: column; /* stack values */
-    align-items: flex-start;
-    font-size: 13px;
-    gap: 4px;
-  }
-
-  .updated {
-    font-size: 11px;
-    padding-top: 8px;
-  }
-}
-
-@media (max-width: 350px) {
-  .health-header {
-    grid-template-columns: 1fr; /* stack shield/title/score vertically */
-    text-align: center;
-  }
-
-  .health-header .score {
-    text-align: center;
-    margin-top: 6px;
-  }
-
-  .health-header .shield {
-    margin: 0 auto;
-  }
-}
-
-/* .metric-card {
-  padding: 2.3rem;
-  background: rgb(31 41 55);
-  border: 2px solid rgb(34 197 94);
-} */
-
 .metric-card {
-  padding: 2.3rem;
-  background: rgb(31 41 55);
-  border: 2px solid rgb(34 197 94);
-  border-radius: 12px;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  cursor: pointer;
+  padding: 16px;
 }
-
-.metric-card:hover {
-  transform: scale(1.02) translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(34, 197, 94, 0.35);
-  z-index: 10;
-}
-
 .metric-header {
   display: grid;
   grid-template-columns: 38px 1fr auto;
@@ -706,34 +574,13 @@ body {
   opacity: 1;
 }
 
-/* Sidebar icon for collapse */
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.collapse-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--foreground);
-  padding: 4px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-}
-
-.collapse-btn:hover {
-  background: var(--accent);
-  color: var(--accent-foreground);
-}
-
 /* Responsive tweaks */
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .health-card {
+    grid-column: span 2;
   }
 }
 @media (max-width: 700px) {
@@ -748,9 +595,12 @@ body {
     font-size: 26px;
   }
 }
-@media (max-width: 780px) {
+@media (max-width: 480px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+  .health-header .score .big {
+    font-size: 34px;
   }
   .stat-card {
     min-height: 80px;
@@ -783,279 +633,5 @@ body {
   .icon-btn {
     width: 36px;
     height: 36px;
-  }
-}
-
-/* Responsive health-card */
-@media (max-width: 482px) {
-  .health-card {
-    padding: 14px; /* reduce padding */
-  }
-
-  .health-header {
-    grid-template-columns: 36px 1fr auto; /* shrink shield + spacing */
-    gap: 10px;
-  }
-
-  .health-header .shield {
-    width: 36px;
-    height: 36px;
-  }
-
-  .health-title .strong {
-    font-size: 22px; /* smaller text */
-  }
-
-  .health-header .score .big {
-    font-size: 28px;
-  }
-
-  .health-header .score .small {
-    font-size: 11px;
-  }
-
-  .section {
-    margin-top: 10px;
-  }
-
-  .section-title {
-    font-size: 14px;
-  }
-
-  .health-body .row {
-    flex-direction: column; /* stack values */
-    align-items: flex-start;
-    font-size: 13px;
-    gap: 4px;
-  }
-
-  .updated {
-    font-size: 11px;
-    padding-top: 8px;
-  }
-}
-
-@media (max-width: 350px) {
-  .health-header {
-    grid-template-columns: 1fr; /* stack shield/title/score vertically */
-    text-align: center;
-  }
-
-  .health-header .score {
-    text-align: center;
-    margin-top: 6px;
-  }
-
-  .health-header .shield {
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 343px) {
-  /* Prevent horizontal overflow */
-  .content,
-  .health-card,
-  .metric-card,
-  .stat-card,
-  .card {
-    max-width: 100%;
-    width: 100%;
-    padding: 10px; /* reduce padding for small screens */
-    box-sizing: border-box;
-  }
-
-  /* Adjust stat cards grid */
-  .stats-row {
-    grid-template-columns: 1fr; /* single column */
-    gap: 10px;
-  }
-
-  /* Dashboard grid single column */
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Health card header compact */
-  .health-header {
-    grid-template-columns: 1fr; /* stack */
-    text-align: center;
-  }
-
-  .health-header .score {
-    text-align: center;
-    margin-top: 6px;
-  }
-
-  .health-header .shield {
-    margin: 0 auto;
-    width: 32px;
-    height: 32px;
-  }
-
-  .health-title .strong {
-    font-size: 20px;
-  }
-
-  .metric-header {
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-  }
-
-  .metric-value .num {
-    font-size: 22px;
-  }
-
-  .icon-btn {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-.metric-card {
-  padding: 2.3rem; /* increased padding */
-  background: rgb(31 41 55);
-  border: 2px solid rgb(34 197 94);
-  border-radius: 12px; /* optional: softer look */
-}
-
-/* 🔥 Fix overflow between 340px–400px */
-@media (max-width: 400px) {
-  .content,
-  .health-card,
-  .metric-card,
-  .stat-card,
-  .card {
-    max-width: 100%;
-    width: 100%;
-    padding: 12px; /* reduce padding */
-    box-sizing: border-box; /* prevent overflow from borders/padding */
-  }
-
-  /* Force grids into one column */
-  .stats-row,
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  /* Compact health header */
-  .health-header {
-    grid-template-columns: 1fr; /* stack shield/title/score */
-    text-align: center;
-  }
-  .health-header .shield {
-    margin: 0 auto;
-    width: 34px;
-    height: 34px;
-  }
-  .health-title .strong {
-    font-size: 21px;
-  }
-  .health-header .score {
-    text-align: center;
-    margin-top: 6px;
-  }
-
-  /* Compact metric card */
-  /* Compact metric card */
-  .metric-header {
-    display: flex; /* use flex instead of grid */
-    align-items: center; /* vertically center icon & text */
-    gap: 8px; /* small gap between them */
-  }
-
-  .metric-icon {
-    width: 28px; /* slightly smaller on mobile */
-    height: 28px;
-    flex-shrink: 0; /* prevents icon from shrinking */
-  }
-
-  .metric-value .num {
-    font-size: 22px;
-  }
-}
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
-  .metric-card {
-    padding: 1.5rem; /* reduce padding slightly on smaller screens */
-  }
-}
-
-@media (max-width: 360px) {
-  .metric-card {
-    padding: 1.2rem; /* keep content from overflowing */
-  }
-  .metric-value .num {
-    font-size: 22px; /* shrink large numbers */
-  }
-}
-
-@media (max-width: 340px) {
-  .metric-card {
-    padding: 1rem; /* tighter padding */
-  }
-
-  .metric-header {
-    grid-template-columns: 32px 1fr; /* drop the auto column */
-    gap: 8px;
-  }
-
-  .metric-icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .metric-title .name {
-    font-size: 15px;
-  }
-
-  .metric-title .meta {
-    font-size: 11px;
-  }
-
-  .metric-value .num {
-    font-size: 22px;
-  }
-
-  .metric-value .unit {
-    font-size: 11px;
-    margin-left: 4px;
-  }
-
-  .metric-body .scale,
-  .metric-body .warns {
-    font-size: 11px;
-    flex-direction: column; /* stack labels instead of squishing */
-    gap: 2px;
-    text-align: center;
-  }
-}
-
-@media (max-width: 299px) {
-  .metric-card {
-    padding: 1rem; /* smallest safe padding */
-  }
-  .metric-header {
-    grid-template-columns: 28px 1fr auto; /* tighten layout */
-  }
-  .metric-icon {
-    width: 28px;
-    height: 28px;
-  }
-  .metric-title .name {
-    font-size: 16px;
-  }
-  .metric-value .num {
-    font-size: 20px;
-  }
-  .metric-body .scale {
-    font-size: 11px;
-    gap: 6px;
-  }
-  .metric-body .warns {
-    font-size: 11px;
-    flex-direction: column;
-    gap: 2px;
   }
 }
