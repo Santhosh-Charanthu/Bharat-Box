@@ -2,7 +2,29 @@
   --bg: #0d1a36; /* You can change this base background color */
 }
 
+.backLink {
+  position: absolute; /* Position relative to the nearest positioned parent (or body) */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+  display: inline-flex;
+  align-items: center;
+  color: #0b62d6;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0;
+  font-size: 1rem;
+  z-index: 100; /* Ensure it’s on top of other content */
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
 .help-container {
+  margin-top: 30px;
   min-height: 100vh;
   padding: 40px;
   background: radial-gradient(

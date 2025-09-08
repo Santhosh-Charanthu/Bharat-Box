@@ -1,8 +1,15 @@
 import "../../styles/maintenance.css";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default function MaintenancePage() {
   return (
     <div className="maintenance-container">
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link href="/" className="backLink">
+          &larr; Back
+        </Link>
+      </nav>
       <div className="maintenance-content">
         <h1>Machine Maintenance</h1>
         <p>

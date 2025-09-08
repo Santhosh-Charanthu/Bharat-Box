@@ -1,8 +1,14 @@
+import Link from "next/link";
 import "../../styles/help.css";
 
 export default function HelpPage() {
   return (
     <div className="help-container">
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link href="/" className="backLink">
+          &larr; Back
+        </Link>
+      </nav>
       <div className="help-content">
         <h1>Help & Support</h1>
         <p>

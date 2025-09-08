@@ -1,8 +1,14 @@
+import Link from "next/link";
 import "../../styles/subscription.css";
 
 export default function SubscriptionPage() {
   return (
     <div className="subscription-container">
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link href="/" className="backLink">
+          &larr; Back
+        </Link>
+      </nav>
       <h1 className="title">Choose Your Plan</h1>
       <p className="subtitle">
         Pick the subscription that fits your business needs.

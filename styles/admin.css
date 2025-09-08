@@ -4,7 +4,29 @@
   --card-bg: rgba(255, 255, 255, 0.05);
 }
 
+.backLink {
+  position: absolute; /* Position relative to the nearest positioned parent (or body) */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+  display: inline-flex;
+  align-items: center;
+  color: #0b62d6;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0;
+  font-size: 1rem;
+  z-index: 100; /* Ensure it’s on top of other content */
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
 .admin-container {
+  margin-top: 30px;
   min-height: 100vh;
   padding: 60px 20px;
   background: radial-gradient(
@@ -49,7 +71,7 @@ ul {
   margin-bottom: 20px;
 }
 
-.cards {
+.admin-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;

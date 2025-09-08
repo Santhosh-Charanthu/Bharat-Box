@@ -24,7 +24,7 @@ export default function LabourDetailPage({ params }) {
     <main className={styles.container}>
       <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
         <Link href="/labours" className={styles.backLink}>
-          &larr; Back to list
+          &larr; Back
         </Link>
       </nav>
 

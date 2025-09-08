@@ -1,8 +1,14 @@
+import Link from "next/link";
 import "../../styles/admin.css";
 
 export default function AdminPage() {
   return (
     <div className="admin-container">
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link href="/" className="backLink">
+          &larr; Back
+        </Link>
+      </nav>
       <div className="admin-content">
         <h1>Admin Dashboard</h1>
         <p>
@@ -31,7 +37,7 @@ export default function AdminPage() {
 
         <section>
           <h2>⚡ Quick Actions</h2>
-          <div className="cards">
+          <div className="admin-cards">
             <div className="admin-card">👥 Manage Users</div>
             <div className="admin-card">🛠 Manage Machines</div>
             <div className="admin-card">📊 View Reports</div>

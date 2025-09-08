@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import styles from "../../styles/labours.module.css";
 import { labours } from "../../data/labours";
 
@@ -11,6 +12,11 @@ export const metadata = {
 export default function LaboursPage() {
   return (
     <main className={styles.container}>
+      <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+        <Link href="/" className={styles.backLink}>
+          &larr; Back
+        </Link>
+      </nav>
       <header className={styles.header}>
         <h1 className={styles.title}>Available Labours</h1>
         <p className={styles.subtitle}>Click a card to see more details</p>
