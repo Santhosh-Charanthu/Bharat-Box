@@ -56,7 +56,7 @@ ul {
   margin-top: 20px;
 }
 
-.card {
+.admin-card {
   background: rgba(255, 255, 255, 0.08);
   padding: 20px;
   border-radius: 10px;
@@ -66,7 +66,7 @@ ul {
   cursor: pointer;
 }
 
-.card:hover {
+.admin-card:hover {
   transform: translateY(-5px);
   background: rgba(255, 255, 255, 0.15);
 }
