@@ -32,10 +32,10 @@ export default function AdminPage() {
         <section>
           <h2>⚡ Quick Actions</h2>
           <div className="cards">
-            <div className="card">👥 Manage Users</div>
-            <div className="card">🛠 Manage Machines</div>
-            <div className="card">📊 View Reports</div>
-            <div className="card">⚙️ Settings</div>
+            <div className="admin-card">👥 Manage Users</div>
+            <div className="admin-card">🛠 Manage Machines</div>
+            <div className="admin-card">📊 View Reports</div>
+            <div className="admin-card">⚙️ Settings</div>
           </div>
         </section>
 
