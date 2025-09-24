@@ -1,7 +1,8 @@
 // 'use client' enables interactive sidebar toggles.
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+
 import Sidebar from "../components/sidebar";
 import TopBar from "../components/top-bar";
 import HealthCard from "../components/health-card";
@@ -10,6 +11,25 @@ import MetricCard from "../components/metric-card";
 import StatCard from "../components/stat-card";
 import { Lato } from "next/font/google";
 
+import { getDatabase, ref, onValue } from "firebase/database";
+import { initializeApp } from "firebase/app";
+
+// 🔹 Your Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyA2ouqEscvgcJEXWWkZP9r9u1y9XSsXuDE",
+  authDomain: "bbox-651e8.firebaseapp.com",
+  databaseURL:
+    "https://bbox-651e8-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bbox-651e8",
+  storageBucket: "bbox-651e8.firebasestorage.app",
+  messagingSenderId: "651971115518",
+  appId: "1:651971115518:web:fe7c5d4aae8e415b6ea8af",
+};
+
+// Initialize Firebase once
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
@@ -17,7 +37,31 @@ const lato = Lato({
   display: "swap",
 });
 
+// 🔹 Sensor state
+
 export default function Page() {
+  const [sensors, setSensors] = useState({
+    vibration: 0,
+    temperature: 0,
+    voltage: 0,
+  });
+
+  // 🔹 Listen to RTDB updates
+  useEffect(() => {
+    const deviceRef = ref(db, "devices/esp32_1");
+
+    onValue(deviceRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setSensors({
+          vibration: data.vibration ?? 0,
+          temperature: data.temperature ?? 0,
+          voltage: data.voltage ?? 0,
+        });
+      }
+    });
+  }, []);
+
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -77,7 +121,7 @@ export default function Page() {
             title="Vibration"
             id="vibration"
             unit="mm/s"
-            value={2.65}
+            value={sensors.vibration}
             status="NORMAL"
             warning="5mm/s"
             critical="8mm/s"
@@ -89,7 +133,7 @@ export default function Page() {
             title="Temperature"
             id="temperature"
             unit="°C"
-            value={45.21}
+            value={sensors.temperature}
             status="NORMAL"
             warning="70°C"
             critical="85°C"
@@ -126,7 +170,7 @@ export default function Page() {
             title="Voltage"
             id="voltage"
             unit="V"
-            value={218.93}
+            value={sensors.voltage}
             status="NORMAL"
             warning="250V"
             critical="280V"
