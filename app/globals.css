@@ -1,3 +1,127 @@
+.chatbot-window {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 450px;
+  height: 600px;
+  background: #1e1e2f;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2000;
+  font-family: sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chatbot-header {
+  background: #2a2a3d;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-header h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.chatbot-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chatbot-message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-width: 80%;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chatbot-message.bot {
+  background: #3a3a5c;
+  align-self: flex-start;
+}
+
+.chatbot-message.user {
+  background: #0078ff;
+  align-self: flex-end;
+  color: #fff;
+}
+
+.chatbot-footer {
+  background: #2a2a3d;
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.chatbot-footer input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #fff;
+  background: #1e1e2f;
+}
+
+.chatbot-footer input::placeholder {
+  color: #aaa;
+}
+
+.chatbot-footer button {
+  background: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chatbot-footer button:hover {
+  background: #005fcc;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 🔹 Responsive Fix */
+@media (max-width: 600px) {
+  .chatbot-window {
+    width: 90%;
+    height: 70%;
+    bottom: 70px;
+    right: 5%;
+  }
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: #e6f0ff; /* force white */
@@ -137,7 +261,9 @@ body {
   padding: 14px;
   gap: 10px;
   z-index: 40;
-  transition: width 0.25s ease, transform 0.25s ease;
+  transition:
+    width 0.25s ease,
+    transform 0.25s ease;
 }
 .sidebar.collapsed {
   width: var(--sidebar-w-collapsed);
@@ -173,7 +299,9 @@ body {
   text-decoration: none;
   padding: 10px 12px;
   border-radius: 10px;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 .menu-item:hover {
   background: #17314c;
@@ -197,7 +325,9 @@ body {
   padding: 10px 12px;
   border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 .logout-btn:hover {
   background: #1a3451;
@@ -397,7 +527,9 @@ body {
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.15s ease, transform 0.05s ease,
+  transition:
+    background 0.15s ease,
+    transform 0.05s ease,
     border-color 0.15s ease;
 }
 .icon-btn:hover {
@@ -575,13 +707,17 @@ body {
   background: rgb(31 41 55);
   border: 2px solid rgb(34 197 94);
   border-radius: 12px;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
   cursor: pointer;
 }
 
 .metric-card:hover {
   transform: scale(1.02) translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(34, 197, 94, 0.35);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(34, 197, 94, 0.35);
   z-index: 10;
 }
 
@@ -676,15 +812,20 @@ body {
   color: #07151f;
   display: grid;
   place-items: center;
-  box-shadow: 0 14px 30px rgba(17, 216, 109, 0.35),
+  box-shadow:
+    0 14px 30px rgba(17, 216, 109, 0.35),
     inset 0 0 10px rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.2s ease;
 }
 .chatbot-fab:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgba(17, 216, 109, 0.5),
-    0 0 0 8px rgba(35, 208, 114, 0.12), inset 0 0 12px rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 18px 36px rgba(17, 216, 109, 0.5),
+    0 0 0 8px rgba(35, 208, 114, 0.12),
+    inset 0 0 12px rgba(255, 255, 255, 0.3);
 }
 .chatbot-fab .tooltip {
   position: absolute;

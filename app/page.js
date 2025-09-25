@@ -1,7 +1,7 @@
 // 'use client' enables interactive sidebar toggles.
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 
 import Sidebar from "../components/sidebar";
 import TopBar from "../components/top-bar";
@@ -37,7 +37,66 @@ const lato = Lato({
   display: "swap",
 });
 
-// 🔹 Sensor state
+// 🔹 Chatbot Component
+function Chatbot({ onClose }) {
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "Hello 👋 How can I help you?" },
+  ]);
+  const [input, setInput] = useState("");
+  const bodyRef = useRef(null);
+
+  // Auto-scroll to bottom when new messages appear
+  useEffect(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    // Add user message
+    setMessages((prev) => [...prev, { sender: "user", text: input }]);
+
+    // Fake bot response (you can hook AI here later)
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "This is a sample AI response 🚀" },
+      ]);
+    }, 800);
+
+    setInput("");
+  };
+
+  return (
+    <div className="chatbot-window">
+      <div className="chatbot-header">
+        <h2>AI Chatbot</h2>
+        <button className="close-btn" onClick={onClose}>
+          ✖
+        </button>
+      </div>
+      <div className="chatbot-body" ref={bodyRef}>
+        {messages.map((msg, idx) => (
+          <div key={idx} className={`chatbot-message ${msg.sender}`}>
+            {msg.text}
+          </div>
+        ))}
+      </div>
+      <div className="chatbot-footer">
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        />
+        <button onClick={handleSend}>Send</button>
+      </div>
+    </div>
+  );
+}
 
 export default function Page() {
   const [sensors, setSensors] = useState({
@@ -45,6 +104,15 @@ export default function Page() {
     temperature: 0,
     voltage: 0,
   });
+
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
+
+  const sidebarState = useMemo(
+    () => ({ collapsed: sidebarCollapsed, mobileOpen: mobileSidebarOpen }),
+    [sidebarCollapsed, mobileSidebarOpen]
+  );
 
   // 🔹 Listen to RTDB updates
   useEffect(() => {
@@ -61,14 +129,6 @@ export default function Page() {
       }
     });
   }, []);
-
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
-  const sidebarState = useMemo(
-    () => ({ collapsed: sidebarCollapsed, mobileOpen: mobileSidebarOpen }),
-    [sidebarCollapsed, mobileSidebarOpen]
-  );
 
   return (
     <div
@@ -157,7 +217,7 @@ export default function Page() {
             title="Current"
             id="current"
             unit="A"
-            value={8.17}
+            value={0}
             status="NORMAL"
             warning="15A"
             critical="18A"
@@ -184,7 +244,7 @@ export default function Page() {
             title="RPM/Speed"
             id="rpm"
             unit="RPM"
-            value={1741.33}
+            value={0}
             status="NORMAL"
             warning="2500RPM"
             critical="2800RPM"
@@ -198,7 +258,7 @@ export default function Page() {
             title="Oil Quality"
             id="oil"
             unit="%"
-            value={97.56}
+            value={0}
             status="CRITICAL"
             warning="40%"
             critical="20%"
@@ -212,7 +272,7 @@ export default function Page() {
             title="Acoustic"
             id="acoustic"
             unit="dB"
-            value={55.49}
+            value={0}
             status="NORMAL"
             warning="85dB"
             critical="100dB"
@@ -226,7 +286,7 @@ export default function Page() {
             title="Humidity"
             id="humidity"
             unit="%"
-            value={50.22}
+            value={0}
             status="NORMAL"
             warning="80%"
             critical="90%"
@@ -237,7 +297,11 @@ export default function Page() {
         </section>
 
         {/* Floating AI Chatbot button */}
-        <button className="chatbot-fab" aria-label="Open AI Chatbot">
+        <button
+          className="chatbot-fab"
+          aria-label="Open AI Chatbot"
+          onClick={() => setChatbotOpen(true)}
+        >
           <span className="tooltip">Chat with AI</span>
           <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -246,6 +310,9 @@ export default function Page() {
             />
           </svg>
         </button>
+
+        {/* Chatbot Popup */}
+        {chatbotOpen && <Chatbot onClose={() => setChatbotOpen(false)} />}
       </main>
 
       {/* Click outside (mobile) to close sidebar */}
