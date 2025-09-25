@@ -168,10 +168,10 @@ export default function Page() {
         </section>
 
         <section className="stats-row">
-          <StatCard label="Normal Sensors" value="8" tone="ok" />
+          <StatCard label="Normal Sensors" value="4" tone="ok" />
           <StatCard label="Warning Sensors" value="0" tone="warn" />
-          <StatCard label="Critical Sensors" value="1" tone="critical" />
-          <StatCard label="Total Sensors" value="9" tone="neutral" />
+          <StatCard label="Critical Sensors" value="0" tone="critical" />
+          <StatCard label="Total Sensors" value="4" tone="neutral" />
         </section>
 
         <section className="dashboard-grid">
